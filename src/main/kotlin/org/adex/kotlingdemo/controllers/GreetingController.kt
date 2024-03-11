@@ -1,5 +1,7 @@
 package org.adex.kotlingdemo.controllers
 
+import mu.KLogger
+import mu.KLogging
 import org.adex.kotlingdemo.services.GreetingServices
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -11,8 +13,11 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/greeting")
 class GreetingController(val greetingServices: GreetingServices) {
 
+    companion object : KLogging()
+
     @GetMapping("{name}")
     fun sayHello(@PathVariable name: String): ResponseEntity<String> {
+        logger.info("Endpoint : GET /greeting/{name}")
         return ResponseEntity.ok(greetingServices.getGreeting(name))
     }
 
