@@ -2,6 +2,7 @@ package org.adex.kotlingdemo.services
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class GreetingServices {
@@ -10,6 +11,6 @@ class GreetingServices {
     lateinit var message : String
 
     fun getGreeting(name: String) : String{
-        return "$message $name"
+        return "$message ${name.uppercase(Locale.getDefault())}"
     }
 }

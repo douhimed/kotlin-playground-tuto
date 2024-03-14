@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.web.client.AutoConfigureWebCl
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.web.reactive.server.WebTestClient
+import java.util.*
 
 
 @ContextConfiguration(classes = [TestConfig::class])
@@ -28,7 +29,7 @@ class GreetingControllerUnitTests {
 
         every {
             greetingServicesMock.getGreeting(any())
-        } returns "Hello, ${name}"
+        } returns "Hello, ${name.uppercase(Locale.getDefault())}"
 
         val result = webTestClient.get()
             .uri("/greeting/{name}", name)
@@ -37,6 +38,6 @@ class GreetingControllerUnitTests {
             .expectBody(String::class.java)
             .returnResult()
 
-        Assertions.assertEquals("Hello, ${name}", result.responseBody)
+        Assertions.assertEquals("Hello, ${name.uppercase(Locale.getDefault())}", result.responseBody)
     }
 }

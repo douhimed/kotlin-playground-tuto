@@ -6,6 +6,7 @@ import org.springframework.boot.test.autoconfigure.web.client.AutoConfigureWebCl
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.reactive.server.WebTestClient
+import java.util.*
 
 
 @SpringBootTest(classes = [KotlingdemoApplication::class], webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -27,6 +28,6 @@ class GreetingControllerIntegrationTests {
             .expectBody(String::class.java)
             .returnResult()
 
-        Assertions.assertEquals("Hello, ${name}", result.responseBody)
+        Assertions.assertEquals("Hello, ${name.uppercase(Locale.getDefault())}", result.responseBody)
     }
 }

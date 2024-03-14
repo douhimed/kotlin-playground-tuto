@@ -1,6 +1,5 @@
 package org.adex.kotlingdemo.controllers
 
-import mu.KLogger
 import mu.KLogging
 import org.adex.kotlingdemo.services.GreetingServices
 import org.springframework.http.ResponseEntity
