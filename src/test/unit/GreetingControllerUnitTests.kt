@@ -1,7 +1,7 @@
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
 import org.adex.kotlingdemo.controllers.GreetingController
-import org.adex.kotlingdemo.services.GreetingServices
+import org.adex.kotlingdemo.services.impl.GreetingServices
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired

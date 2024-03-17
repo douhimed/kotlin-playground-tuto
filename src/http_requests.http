@@ -1,2 +1,35 @@
-http://localhost:8080/greeting/medox
+### GET greeting
+GET http://localhost:8080/greeting/medox
 
+### POST course
+POST http://localhost:8080/courses
+Content-Type: application/json
+
+{
+  "title": "Course 1",
+  "category": "Dev"
+}
+
+### GET courses
+GET http://localhost:8080/courses
+
+### PUT course
+PUT http://localhost:8080/courses/1
+Content-Type: application/json
+
+{
+  "title": "Course 10",
+  "category": "Dev & Algo"
+}
+
+### PUT course NOT FOUND
+PUT http://localhost:8080/courses/1000
+Content-Type: application/json
+
+{
+  "title": "Course 10",
+  "category": "Dev & Algo"
+}
+
+### DELETE course
+DELETE http://localhost:8080/courses/1

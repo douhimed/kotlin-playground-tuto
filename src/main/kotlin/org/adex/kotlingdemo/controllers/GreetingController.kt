@@ -1,7 +1,7 @@
 package org.adex.kotlingdemo.controllers
 
 import mu.KLogging
-import org.adex.kotlingdemo.services.GreetingServices
+import org.adex.kotlingdemo.services.impl.GreetingServices
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable

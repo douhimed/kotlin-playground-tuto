@@ -1,4 +1,4 @@
-package org.adex.kotlingdemo.services
+package org.adex.kotlingdemo.services.impl
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
