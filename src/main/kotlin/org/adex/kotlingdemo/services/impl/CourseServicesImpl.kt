@@ -25,10 +25,14 @@ class CourseServicesImpl(
             ?: throw RuntimeException("Something went wrong")
     }
 
-    override fun getAllCourses(): List<CourseDto> {
-        return courseRepository.findAll()
-            .map { it -> CourseDto(it.id, it.title, it.category) }
-            .toList()
+    override fun getCourses(title: String?): List<CourseDto> {
+
+        var courses = title?.let {
+            courseRepository.findByTitleContainsIgnoreCase(title)
+        } ?: courseRepository.findAll()
+
+        return courses
+            .map { CourseDto(it.id, it.title, it.category) }
     }
 
     override fun updateCourse(id: Int, courseDto: CourseDto): Int {

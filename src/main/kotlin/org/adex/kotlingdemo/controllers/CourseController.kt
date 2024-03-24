@@ -31,8 +31,8 @@ class CourseController(val courseServices: CourseServices) {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    fun getAllCourses(): ResponseEntity<List<CourseDto>> {
-        var courses = courseServices.getAllCourses()
+    fun getAllCourses(@RequestParam(required = false) title: String?): ResponseEntity<List<CourseDto>> {
+        var courses = courseServices.getCourses(title)
         return ResponseEntity.ok(courses)
     }
 

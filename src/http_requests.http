@@ -6,7 +6,7 @@ POST http://localhost:8080/courses
 Content-Type: application/json
 
 {
-  "title": "Course 1",
+  "title": "JavaScript",
   "category": "Dev"
 }
 
@@ -51,3 +51,6 @@ Content-Type: application/json
   "title": "Dev One",
   "category": ""
 }
+
+### GET courses with query param
+GET http://localhost:8080/courses?title=java
