@@ -6,11 +6,15 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.MethodSource
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.client.AutoConfigureWebClient
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.reactive.server.WebTestClient
+import java.util.stream.Stream
 
 @SpringBootTest(classes = [KotlingdemoApplication::class], webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
@@ -21,7 +25,7 @@ class CourseControllerIntegrationTests {
     lateinit var webTestClient: WebTestClient
 
     @Autowired
-    lateinit var courseRepository: CourseRepository;
+    lateinit var courseRepository: CourseRepository
 
     val path: String = "/courses"
 
@@ -104,4 +108,48 @@ class CourseControllerIntegrationTests {
             .exchange()
             .expectStatus().isNoContent
     }
+
+    @Test
+    fun findByTitle_shouldReturnListOfCoursesWithTitleContainingValueWithIgnoringCase() {
+
+        var coursesList = courseRepository.findByTitleContainsIgnoreCase("course 1")
+        Assertions.assertEquals(1, coursesList.size)
+        Assertions.assertEquals("Course 1", coursesList[0].title)
+
+        coursesList = courseRepository.findByTitleContainsIgnoreCase("course")
+        Assertions.assertEquals(3, coursesList.size)
+    }
+
+    @Test
+    fun findCourseByTitle_shouldReturnListOfCoursesWithTitleContainingValueWithIgnoringCase() {
+
+        var coursesList = courseRepository.findCoursesByTitle("Course 1")
+        Assertions.assertEquals(1, coursesList.size)
+        Assertions.assertEquals("Course 1", coursesList[0].title)
+
+        coursesList = courseRepository.findCoursesByTitle("Course")
+        Assertions.assertEquals(3, coursesList.size)
+    }
+
+    @ParameterizedTest
+    @MethodSource("courseAndSize")
+    fun findCourseByTitleWithParametrizedParams_shouldReturnList(
+        name: String,
+        expectedSize: Int
+    ) {
+        val coursesList = courseRepository.findCoursesByTitle(name)
+        Assertions.assertEquals(expectedSize, coursesList.size)
+    }
+
+    companion object {
+
+        @JvmStatic
+        fun courseAndSize(): Stream<Arguments> {
+            return Stream.of(
+                Arguments.of("Course 1", 1),
+                Arguments.of("Course", 3)
+            )
+        }
+    }
+
 }
