@@ -33,3 +33,21 @@ Content-Type: application/json
 
 ### DELETE course
 DELETE http://localhost:8080/courses/1
+
+### POST course with blank title
+POST http://localhost:8080/courses
+Content-Type: application/json
+
+{
+  "title": "",
+  "category": "Dev & Algo"
+}
+
+### POST course with blank category
+POST http://localhost:8080/courses
+Content-Type: application/json
+
+{
+  "title": "Dev One",
+  "category": ""
+}
